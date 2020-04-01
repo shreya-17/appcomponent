@@ -1,0 +1,28 @@
+---
+         - name: Remove Directory
+           file:
+              path: '{{ path }}'
+              state: absent
+              mode: 0775
+           when: path != true
+ 
+
+         - name: Create a Directory
+           file:
+             path: '{{ path }}'
+             state: directory
+             mode:  0775
+           when: path != true
+
+ 
+
+         - name: Cloning the git repository
+           git:
+              repo: https://ansible-story@dev.azure.com/ansible-story/springbootapp_mumbai/_git/springbootapp_mumbai
+              dest: /home/ubuntu/appservers1/springbootapp_mumbai
+        
+
+         - name: Maven Run
+           shell:
+             cmd: mvn spring:boot run -Doracle.jdbc.timezoneAsRegion=false
+             chdir: /home/ubuntu/appservers1/springbootapp_mumbai/FlightStatusServiceImpl

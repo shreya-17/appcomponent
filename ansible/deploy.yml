@@ -1,0 +1,8 @@
+---
+
+- hosts: appservers
+  become_user: root
+  #sudo : yes
+  roles:
+       - appserverrole
+
